@@ -1,0 +1,17 @@
+export const GET_BOOKS = 'GET_BOOKS';
+export const ADD_BOOK = 'ADD_BOOK';
+export const DELETE_BOOK = 'DELETE_BOOK';
+export const GET_BOOK_DETAIL = 'GET_BOOK_DETAIL';
+export const DECREASE_BOOKS = 'DECREASE_BOOKS';
+export const INCREASE_BOOKS = 'INCREASE_BOOKS';
+export const LOADING_BOOK = 'LOADING_BOOK';
+export const USER_LOADING = 'USER_LOADING';
+export const USER_LOADED = 'USER_LOADED';
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCES';
+export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCES';
+export const REGISTER_SUCESS = 'REGISTER_SUCESS';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
+export const GET_ERROR = 'GET_ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';

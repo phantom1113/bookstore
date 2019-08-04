@@ -1,8 +1,11 @@
 import React from 'react';
-import Header from './components/Header'
-import Menu from './components/Menu'
-import Banner from './components/Banner'
-
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Menu from './components/Menu';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import routes from './routes/Routes';
+import { Provider } from 'react-redux';
+import store from './store/store'
 
 
 
@@ -22,11 +25,32 @@ export default class Example extends React.Component {
     }
     render() {
         return (
-            <div>
-                <Header/>
-                <Menu/>
-                <Banner/>
-            </div>
+            <Provider store={store}>
+                <Router>
+                    <Header/>
+                    <Menu/>
+                    <Switch>
+                        {this.showContentMenus(routes)}
+                    </Switch>
+                    <Footer/>
+                </Router>
+            </Provider>
         );
+    }
+
+    showContentMenus = (routes) => {
+        let result = null;
+        if(routes.length > 0){
+            result = routes.map((route,index) => {
+                return (
+                    <Route key={index} 
+                    path={route.path} 
+                    exact={route.exact} 
+                    component={route.main}
+                    />
+                )
+            })
+        }
+        return result;
     }
 }

@@ -31,7 +31,7 @@ export default class Header extends React.Component {
                 <Container className="mt-2 mb-2">
                     <div>
                         <Row>
-                            <Col sm="4"><Icon name="bars" size="big"/>Danh mục sách</Col>
+                            <Col sm="4"></Col>
                             <Col sm="4"></Col>
                             <Col sm="4">
                                 <div style={{display: "inline", marginRight: "1rem"}}>                                

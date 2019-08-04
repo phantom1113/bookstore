@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import {
     Container,
     Row,
@@ -27,23 +28,23 @@ export default class Banner extends React.Component {
     }
     render() {
         return (
-            <div style={{ backgroundColor: "white" }}>
+            <div style={{ backgroundColor: "white" , marginBottom: "1rem"}}>
                 <Container>
                     <Row>
                         <Col xs="12" md="3">
                             <ListGroup>
-                                <ListGroupItem tag="a" href="#" action>Sách Bán Chạy</ListGroupItem>
-                                <ListGroupItem tag="a" href="#" action>Sách Mới Phát Hành</ListGroupItem>
-                                <ListGroupItem tag="a" href="#" action>Sách Sắp Phát Hành</ListGroupItem>
-                                <ListGroupItem tag="a" href="#" action>Sách Ngoại Văn</ListGroupItem>
-                                <ListGroupItem tag="a" href="#" action>Sách Kinh Tế</ListGroupItem>
-                                <ListGroupItem tag="a" href="#" action>Sách Văn Học Trong Nước</ListGroupItem>
-                                <ListGroupItem tag="a" href="#" action>Sách thiếu nhi</ListGroupItem>
-                                <ListGroupItem tag="a" href="#" action>Sách Tin Học-Ngoại Ngữ</ListGroupItem>
-                                <ListGroupItem tag="a" href="#" action>Sách Chuyên Ngành</ListGroupItem>
-                                <ListGroupItem tag="a" href="#" action>Sách Giáo Khoa - Giáo Trình</ListGroupItem>
-                                <ListGroupItem tag="a" href="#" action>Sách Văn Học Nước Ngoài</ListGroupItem>
-                                <ListGroupItem tag="a" href="#" action>Sách Thường Thức-Đời Sống</ListGroupItem>
+                                <ListGroupItem disabled tag="a" href="#" action><h4 className="text-success">Danh mục sách</h4></ListGroupItem>
+                                <Link className="list-group-item-action list-group-item" to="/category">Sách Bán Chạy</Link>
+                                <Link className="list-group-item-action list-group-item" to="/category">Sách Mới Phát Hành</Link>
+                                <Link className="list-group-item-action list-group-item" to="/category">Sách Sắp Phát Hành</Link>
+                                <Link className="list-group-item-action list-group-item" to="/category">Sách Ngoại Văn</Link>
+                                <Link className="list-group-item-action list-group-item" to="/category/Sách Kinh Tế">Sách Kinh Tế</Link>
+                                <Link className="list-group-item-action list-group-item" to="/category/Văn học Việt Nam">Sách Văn Học Trong Nước</Link>
+                                <Link className="list-group-item-action list-group-item" to="/category">Sách thiếu nhi</Link>
+                                <Link className="list-group-item-action list-group-item" to="/category">Sách Tin Học-Ngoại Ngữ</Link>                              
+                                <Link className="list-group-item-action list-group-item" to="/category">Sách Giáo Khoa - Giáo Trình</Link>
+                                <Link className="list-group-item-action list-group-item" to="/category/Văn học nước ngoài">Sách Văn Học Nước Ngoài</Link>
+                                <Link className="list-group-item-action list-group-item" to="/category">Sách Thường Thức-Đời Sống</Link>
                             </ListGroup>
                         </Col>
                         <Col xs="12" md="9" style={{paddingLeft:"0"}}>
