@@ -8,6 +8,7 @@ import {
     NavItem,
     NavLink,
 } from 'reactstrap';
+import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import logo from '../img/logo.png'
 import { 
@@ -19,7 +20,7 @@ import {
 
 
 
-export default class Header extends React.Component {
+class Header extends React.Component {
     constructor(props) {
         super(props);
 
@@ -33,7 +34,18 @@ export default class Header extends React.Component {
             isOpen: !this.state.isOpen
         });
     }
+
+    calProduct(arr) {
+        let result = 0;
+        for (let i = 0; i < arr.length; i++){
+            result += arr[i].quantity; 
+        }
+        return result;
+    }
+
     render() {
+        let temp = this.props.cart || [];
+        let result = this.calProduct(temp);
         return (
             <div style={{ backgroundColor: "white" }}>
                 <Container>
@@ -50,7 +62,7 @@ export default class Header extends React.Component {
                                 <NavItem className="ml-3"> 
                                     <Link to="/cart" className="nav-link">
                                         <Icon className="position-relative" size="big" name='shopping cart'>
-                                            <Label style={{ top:"0", left: "2rem"}} className="position-absolute" size="small" circular color="green">1</Label>        
+                                            <Label style={{ top:"0", left: "2rem"}} className="position-absolute" size="small" circular color="green">{result}</Label>        
                                         </Icon>                                                                                                                             
                                     </Link>
                                 </NavItem>
@@ -68,3 +80,11 @@ export default class Header extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        cart : state.cart,
+    }
+};
+
+export default connect(mapStateToProps, null)(Header);

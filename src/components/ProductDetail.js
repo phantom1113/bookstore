@@ -2,6 +2,7 @@ import React from 'react'
 import { Container,Row, Col,Card, CardText, CardBody, CardSubtitle, Button,Table } from 'reactstrap';
 import { connect } from 'react-redux';
 import { getBookDetail } from './../actions/index';
+import { actAddToCart } from './../actions/cart';
 import { Icon, List, Divider, Image, ListHeader, ListItem } from 'semantic-ui-react';
 
 
@@ -18,10 +19,13 @@ class ProductDetail extends React.Component {
         }
         return result;       
     }
+    
+    onAddToCart = (product) => {
+        this.props.onAddToCart(product);
+    }
 
     render(){
         const book= this.props.books.book || {};
-        console.log(book)
         return(
             <Container>
                 <Row className="mt-2">
@@ -53,7 +57,7 @@ class ProductDetail extends React.Component {
                                     <ListItem>Còn hàng</ListItem>
                                 </List>
                                 <Divider section /> 
-                                <Button color="primary">Mua hàng</Button>
+                                <Button color="primary" onClick={() => this.onAddToCart(book)}>Mua hàng</Button>
                             </CardBody>
                         </Card>
                     </Col>
@@ -117,6 +121,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         onGetBookDetail: (id) => {
             dispatch(getBookDetail(id));
+        },
+        onAddToCart: (product) => {
+            dispatch(actAddToCart(product,1))
         }
     }
 }
