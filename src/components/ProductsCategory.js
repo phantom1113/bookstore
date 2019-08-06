@@ -15,9 +15,8 @@ class ProductsCategory extends React.Component {
         this.props.onIncreasePrice(books);
     }
     render(){
-        let { books } = this.props.books;
+        let books  = this.props.books.books.filter( book => book.category === this.props.match.params.id);
         return(
-
             <Container>
                 <Row className='mt-2'>
                     <Col>

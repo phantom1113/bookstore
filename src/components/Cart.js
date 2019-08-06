@@ -2,6 +2,7 @@ import React from 'react'
 import { Container,Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 import { Button, Image, List, Label, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux';
+import { actRemoveProductInCart, actUpdateProductInCart } from '../actions/cart';
 
 
 
@@ -20,6 +21,16 @@ class Cart extends React.Component {
         return result;
     }
 
+    DeleteProductInCart(product) {
+        this.props.onDeleteProductInCart(product);
+    }
+
+    UpdateProductInCart(product,quantity){
+        if(quantity > 0) {
+            this.props.onUpdateProductInCart(product,quantity);
+        }
+    }
+
     render(){
         let temp = this.props.cart || [];
         console.log(temp);
@@ -35,7 +46,7 @@ class Cart extends React.Component {
                                     return (
                                         <List.Item>
                                             <List.Content floated='right'>
-                                                <Button icon='close' />
+                                                <Button icon='close' onClick={() => this.DeleteProductInCart(item.product) }/>
                                             </List.Content>
                                             <Image src={item.product.image} />
                                             <List.Content>
@@ -44,9 +55,9 @@ class Cart extends React.Component {
                                                     <List.Item>{item.product.newprice}VNĐ</List.Item>
                                                     <List.Item><strike>{item.product.oldprice}VNĐ</strike><Label color='red'>-{item.product.percentdis}%</Label></List.Item>
                                                     <List.Item>
-                                                        <Button icon='minus' />
+                                                        <Button onClick={() => this.UpdateProductInCart(item.product,item.quantity-1)} icon='minus' />
                                                         <Input style={{ width: "20%" }} size='small' value={item.quantity} />
-                                                        <Button style={{ marginLeft: ".25rem" }} icon='plus' />
+                                                        <Button onClick={() => this.UpdateProductInCart(item.product,item.quantity+1)} style={{ marginLeft: ".25rem" }} icon='plus' />
                                                     </List.Item>
                                                 </List>
                                             </List.Content>
@@ -89,7 +100,14 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    
+    return {
+        onDeleteProductInCart: (product) => {
+            dispatch(actRemoveProductInCart(product));
+        },
+        onUpdateProductInCart : (product,quantity) => {
+            dispatch(actUpdateProductInCart(product,quantity));
+        }
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

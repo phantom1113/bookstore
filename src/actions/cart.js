@@ -7,3 +7,18 @@ export const actAddToCart = (product, quantity) => {
         quantity
     }
 }
+
+export const actRemoveProductInCart = (product) => {
+    return {
+        type: Types.DELETE_PRODUCT_IN_CART,
+        product
+    }
+}
+
+export const actUpdateProductInCart = (product,quantity) => {
+    return {
+        type:Types.UPDATE_PRODUCT_IN_CART,
+        product,
+        quantity
+    }
+}

@@ -10,20 +10,32 @@ const cartReducer = (state = initialState, action) => {
     let index = -1;
     switch (action.type) {
         case Types.ADD_TO_CARD:
-            {
-                index = findProductInCart(state, product);
-                if (index !== -1) {
-                    state[index].quantity += quantity;
-                } else {
-                    state.push({
-                        product,
-                        quantity
-                    });
-                }
-                console.log(state);
-                localStorage.setItem('CART', JSON.stringify(state));
-                return [...state];
+            index = findProductInCart(state, product);
+            if (index !== -1) {
+                state[index].quantity += quantity;
+            } else {
+                state.push({
+                    product,
+                    quantity
+                });
             }
+            console.log(state);
+            localStorage.setItem('CART', JSON.stringify(state));
+            return [...state];
+        case Types.DELETE_PRODUCT_IN_CART:
+            index = findProductInCart(state, product);
+            if (index !== -1) {
+                state.splice(index, 1);
+            }
+            localStorage.setItem('CART', JSON.stringify(state));
+            return [...state];
+        case Types.UPDATE_PRODUCT_IN_CART:
+            index = findProductInCart(state, product);
+            if (index !== -1) {
+                state[index].quantity = quantity;
+            }
+            localStorage.setItem('CART', JSON.stringify(state));
+            return [...state];
         default: return [ ...state ];
     }
 }
