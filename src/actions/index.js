@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as Types from './types';
-
+import { returnError } from './error';
 
 export const getBook = (category) => dispatch => {
     dispatch(setBookLoading());
@@ -17,7 +17,7 @@ export const getBook = (category) => dispatch => {
             });
         })
         .catch(err => {
-            console.log(err)
+            dispatch(returnError(err.response.data, err.response.status));
         })
 };
 
@@ -32,7 +32,7 @@ export const getBookDetail = (id) => dispatch => {
             });
         })
         .catch(err => {
-            console.log(err)
+            dispatch(returnError(err.response.data, err.response.status));
         })
 };
 

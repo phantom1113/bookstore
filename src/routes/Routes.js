@@ -4,6 +4,8 @@ import ProductsList from '../components/ProductsList';
 import ProductDetail from '../components/ProductDetail';
 import ProductsCategory from '../components/ProductsCategory';
 import Cart from '../components/Cart';
+import Login from '../components/Login';
+import RegisterModal from '../components/Register';
 
 const routes = [
     {
@@ -46,6 +48,28 @@ const routes = [
             return (
                 <div style={{marginBottom:"10%"}}>
                     <Cart />
+                </div>
+            )
+        }
+    },
+    {
+        path: '/login',
+        exact: true,
+        main: ({match,history}) => {
+            return (
+                <div>
+                    <Login match={match} history={history}/>
+                </div>
+            )
+        }
+    },
+    {
+        path: '/register',
+        exact: true,
+        main: ({match,history}) => {
+            return (
+                <div>
+                    <RegisterModal match={match} history={history}/>
                 </div>
             )
         }

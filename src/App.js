@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Menu from './components/Menu';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import routes from './routes/Routes';
+import { loadUser } from './actions/auth';
 import { Provider } from 'react-redux';
 import store from './store/store'
 
@@ -17,6 +18,9 @@ export default class Example extends React.Component {
         this.state = {
             isOpen: false
         };
+    }
+    componentDidMount(){
+        store.dispatch(loadUser());
     }
     toggle() {
         this.setState({

@@ -5,12 +5,12 @@ import {
     Navbar,
     NavbarToggler,
     Nav,
-    NavItem,
-    NavLink,
+    NavItem
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import logo from '../img/logo.png'
+import { logout } from '../actions/auth';
 import { 
     Input,
     Icon,
@@ -46,6 +46,7 @@ class Header extends React.Component {
     render() {
         let temp = this.props.cart || [];
         let result = this.calProduct(temp);
+        const { user } = this.props.auth;
         return (
             <div style={{ backgroundColor: "white" }}>
                 <Container>
@@ -67,10 +68,16 @@ class Header extends React.Component {
                                     </Link>
                                 </NavItem>
                                 <NavItem className="ml-3">
-                                    <NavLink href="#"><h5>Đăng nhập</h5></NavLink>
+                                    {     
+                                        user ?
+                                        <Link className="nav-link disabled"><h5><b>Welcom {user.name}</b></h5></Link> : <Link className="nav-link" to="/login"><h5>Đăng nhập</h5></Link>
+                                    }
                                 </NavItem>
                                 <NavItem className="ml-3">
-                                    <NavLink href="#"><h5>Đăng ký</h5></NavLink>
+                                    {     
+                                        user ?
+                                        <Link className="nav-link " onClick={() => this.props.onLogout()}><h5>Đăng xuất</h5></Link> : <Link className="nav-link" to="/register"><h5>Đăng kí</h5></Link>
+                                    }                                    
                                 </NavItem>
                             </Nav>
                         </Collapse>
@@ -84,7 +91,17 @@ class Header extends React.Component {
 const mapStateToProps = (state) => {
     return {
         cart : state.cart,
+        auth: state.auth
     }
 };
 
-export default connect(mapStateToProps, null)(Header);
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+      onLogout: () => {
+        dispatch(logout());
+      }
+    }
+  }
+  
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
