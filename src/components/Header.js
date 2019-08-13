@@ -43,8 +43,19 @@ class Header extends React.Component {
         return result;
     }
 
+    checkAuth(){
+        let temp 
+        if(this.props.auth.token===null){
+            temp = this.props.cart || [];
+        }else{
+            temp = this.props.auth.user.cart || [];
+            console.log(temp);
+        }
+        return temp;
+    }   
+
     render() {
-        let temp = this.props.cart || [];
+        let temp = this.checkAuth();
         let result = this.calProduct(temp);
         const { user } = this.props.auth;
         return (

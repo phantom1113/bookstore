@@ -24,7 +24,6 @@ class LoginModal extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { error, isAuthenticated } = this.props;
-    console.log(error,prevProps.error);
     if (error !== prevProps.error) {
       if (error.id === Types.LOGIN_FAIL) {
         this.setState({ msg: error.msg.msg })
@@ -44,11 +43,9 @@ class LoginModal extends React.Component {
     }
   }
 
-  toggle = () => {
+  toggle = (e) => {
     this.props.onClearError();
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }));
+    e.target.value = '';
   }
 
   onChange = (e) => {
@@ -62,7 +59,6 @@ class LoginModal extends React.Component {
     this.props.onLogin(user);
   }
   render() {
-    console.log(this.state.msg);
     return (
       <Grid textAlign='center' style={{ height: '100vh',marginTop:"1rem"}} verticalAlign='top'>
         <Grid.Column style={{ maxWidth: 450 }}>
@@ -70,8 +66,8 @@ class LoginModal extends React.Component {
           {this.state.msg ? (<Alert color='danger'>{this.state.msg}</Alert>) : null}
           <Form size='large' onSubmit={this.onSubmit}>
             <Segment stacked>
-              <Form.Input fluid onChange={this.onChange} name="email" icon='email' iconPosition='left' placeholder='E-mail address' />
-              <Form.Input fluid onChange={this.onChange} name="password" icon='lock' iconPosition='left' placeholder='Password' type='password' />
+              <Form.Input onClick={this.toggle}  fluid onChange={this.onChange} name="email" icon='email' iconPosition='left' placeholder='E-mail address' />
+              <Form.Input onClick={this.toggle}  fluid onChange={this.onChange} name="password" icon='lock' iconPosition='left' placeholder='Password' type='password' />
               <Button color='teal' fluid size='large'>Login</Button>
             </Segment>
           </Form>

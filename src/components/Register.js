@@ -42,11 +42,9 @@ class RegisterModal extends React.Component {
     }
   }
 
-  toggle = () => {
+  toggle = (e) => {
     this.props.onClearError();
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }));
+    e.target.value = '';
   }
   
   onChange = (e) => {
@@ -80,9 +78,9 @@ class RegisterModal extends React.Component {
         {this.state.msg ? (<Alert color='danger'>{this.state.msg}</Alert>) : null}
         <Form size='large' onSubmit={this.onSubmit}>
           <Segment stacked>
-            <Form.Input  onChange={this.onChange} name="name" fluid icon='user' iconPosition='left' placeholder='Username' />
-            <Form.Input  onChange={this.onChange} name="email" fluid icon='mail' iconPosition='left' placeholder='E-mail address' />
-            <Form.Input  onChange={this.onChange} name="password" fluid icon='lock' iconPosition='left' placeholder='Password'  type='password'/>  
+            <Form.Input onClick={this.toggle}  onChange={this.onChange} name="name" fluid icon='user' iconPosition='left' placeholder='Username' />
+            <Form.Input onClick={this.toggle}  onChange={this.onChange} name="email" fluid icon='mail' iconPosition='left' placeholder='E-mail address' />
+            <Form.Input onClick={this.toggle} o nChange={this.onChange} name="password" fluid icon='lock' iconPosition='left' placeholder='Password'  type='password'/>  
             <Button color='teal' fluid size='large'>
               Register
             </Button>

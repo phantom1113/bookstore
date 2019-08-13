@@ -3,6 +3,7 @@ import { Container,Row, Col,Card, CardText, CardBody, CardSubtitle, Button,Table
 import { connect } from 'react-redux';
 import { getBookDetail } from './../actions/index';
 import { actAddToCart } from './../actions/cart';
+import { actAddToCartAuth } from './../actions/cartAuth';
 import { Icon, List, Divider, Image, ListHeader, ListItem } from 'semantic-ui-react';
 
 
@@ -21,7 +22,11 @@ class ProductDetail extends React.Component {
     }
     
     onAddToCart = (product) => {
-        this.props.onAddToCart(product);
+        if(this.props.auth.token===null){
+            this.props.onAddToCart(product);
+        }else{
+            this.props.onAddToCartAuth(product);
+        }
     }
 
     render(){
@@ -114,6 +119,7 @@ class ProductDetail extends React.Component {
 const mapStateToProps = (state) => {
     return {
         books: state.books,
+        auth: state.auth
     }
 };
 
@@ -123,7 +129,10 @@ const mapDispatchToProps = (dispatch, props) => {
             dispatch(getBookDetail(id));
         },
         onAddToCart: (product) => {
-            dispatch(actAddToCart(product,1))
+            dispatch(actAddToCart(product,1));
+        },
+        onAddToCartAuth: (product) => {
+            dispatch(actAddToCartAuth(product,1));
         }
     }
 }

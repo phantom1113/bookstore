@@ -3,7 +3,7 @@ import { Container,Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 import { Button, Image, List, Label, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { actRemoveProductInCart, actUpdateProductInCart } from '../actions/cart';
-
+import { updateCartAuth, actRemoveProductInCartAuth} from '../actions/cartAuth';
 
 
 
@@ -16,23 +16,42 @@ class Cart extends React.Component {
     calPrice(arr) {
         let result = 0;
         for (let i = 0; i < arr.length; i++){
-            result += arr[i].product.newprice*arr[i].quantity; 
+            result += arr[i].item.newprice*arr[i].quantity; 
         }
         return result;
     }
 
     DeleteProductInCart(product) {
-        this.props.onDeleteProductInCart(product);
+        if(this.props.auth.token===null){
+            this.props.onDeleteProductInCart(product);
+        }else{
+            this.props.onDeleteProductInCartAuth(product);
+        }
     }
 
     UpdateProductInCart(product,quantity){
         if(quantity > 0) {
-            this.props.onUpdateProductInCart(product,quantity);
+            if(this.props.auth.token===null){
+                this.props.onUpdateProductInCart(product,quantity);
+            }else{
+                this.props.onUpdateProductInCartAuth(product,quantity);
+            }
         }
     }
 
+    checkAuth(){
+        let temp 
+        if(this.props.auth.token===null){
+            temp = this.props.cart || [];
+        }else{
+            temp = this.props.auth.user.cart || [];
+            console.log(temp);
+        }
+        return temp;
+    } 
+
     render(){
-        let temp = this.props.cart || [];
+        let temp = this.checkAuth();
         console.log(temp);
         let result = this.calPrice(temp);
         return(
@@ -41,23 +60,22 @@ class Cart extends React.Component {
                     <Col md="8">
                         <List divided verticalAlign='middle'>
                             {
-                                temp.map(item => {
-                                    console.log(item);
+                                temp.map(product => {
                                     return (
                                         <List.Item>
                                             <List.Content floated='right'>
-                                                <Button icon='close' onClick={() => this.DeleteProductInCart(item.product) }/>
+                                                <Button icon='close' onClick={() => this.DeleteProductInCart(product.item) }/>
                                             </List.Content>
-                                            <Image src={item.product.image} />
+                                            <Image src={product.item.image} />
                                             <List.Content>
                                                 <List relaxed>
-                                                    <List.Item>{item.product.name}</List.Item>
-                                                    <List.Item>{item.product.newprice}VNĐ</List.Item>
-                                                    <List.Item><strike>{item.product.oldprice}VNĐ</strike><Label color='red'>-{item.product.percentdis}%</Label></List.Item>
+                                                    <List.Item>{product.item.name}</List.Item>
+                                                    <List.Item>{product.item.newprice}VNĐ</List.Item>
+                                                    <List.Item><strike>{product.item.oldprice}VNĐ</strike><Label color='red'>-{product.item.percentdis}%</Label></List.Item>
                                                     <List.Item>
-                                                        <Button onClick={() => this.UpdateProductInCart(item.product,item.quantity-1)} icon='minus' />
-                                                        <Input style={{ width: "20%" }} size='small' value={item.quantity} />
-                                                        <Button onClick={() => this.UpdateProductInCart(item.product,item.quantity+1)} style={{ marginLeft: ".25rem" }} icon='plus' />
+                                                        <Button onClick={() => this.UpdateProductInCart(product.item,product.quantity-1)} icon='minus' />
+                                                        <Input style={{ width: "20%" }} size='small' value={product.quantity} />
+                                                        <Button onClick={() => this.UpdateProductInCart(product.item,product.quantity+1)} style={{ marginLeft: ".25rem" }} icon='plus' />
                                                     </List.Item>
                                                 </List>
                                             </List.Content>
@@ -96,6 +114,7 @@ class Cart extends React.Component {
 const mapStateToProps = (state) => {
     return {
         cart : state.cart,
+        auth: state.auth
     }
 };
 
@@ -106,6 +125,12 @@ const mapDispatchToProps = (dispatch, props) => {
         },
         onUpdateProductInCart : (product,quantity) => {
             dispatch(actUpdateProductInCart(product,quantity));
+        },
+        onUpdateProductInCartAuth : (item, quantity) => {
+            dispatch(updateCartAuth(item,quantity));
+        },
+        onDeleteProductInCartAuth : (item) => {
+            dispatch(actRemoveProductInCartAuth(item));
         }
     }
 }
