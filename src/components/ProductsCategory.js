@@ -25,9 +25,9 @@ class ProductsCategory extends React.Component {
                         <Button outline color="success" onClick={() => this.onDecreasePrice(books)}>Giá từ thấp đến cao</Button>{' '}
                         <Row>
                             {
-                                books.map(product => (
-                                    <Item key={product.id} product={product} />
-                                ))
+                                books.map(product => {
+                                    return <Item key={product._id} product={product} />
+                                })
                             }
                         </Row>
                     </Col>

@@ -20,7 +20,10 @@ export default class Example extends React.Component {
         };
     }
     componentDidMount(){
-        store.dispatch(loadUser());
+        let token = localStorage.getItem('token');
+        if(token){
+            store.dispatch(loadUser());
+        }
     }
     toggle() {
         this.setState({

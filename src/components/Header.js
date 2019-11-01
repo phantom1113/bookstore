@@ -5,16 +5,22 @@ import {
     Navbar,
     NavbarToggler,
     Nav,
-    NavItem
+    NavItem,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import logo from '../img/logo.png'
 import { logout } from '../actions/auth';
+import SearchBar2 from './SearchBar2';
 import { 
-    Input,
     Icon,
-    Label
+    Label,
+    Image
  } from 'semantic-ui-react'
 
 
@@ -28,6 +34,7 @@ class Header extends React.Component {
         this.state = {
             isOpen: false
         };
+        this.groupOption = this.groupOption.bind(this);
     }
     toggle() {
         this.setState({
@@ -49,10 +56,28 @@ class Header extends React.Component {
             temp = this.props.cart || [];
         }else{
             temp = this.props.auth.user.cart || [];
-            console.log(temp);
         }
         return temp;
-    }   
+    } 
+    
+    groupOption(){
+        return(
+            <UncontrolledDropdown nav inNavbar>
+            <DropdownToggle nav caret>
+                    <Image src='https://dreambuildersproduction.com/wp-content/uploads/2015/03/myAvatar-7.png' size='mini' circular />
+            </DropdownToggle>
+                <DropdownMenu right>
+                    <DropdownItem onClick={() => this.props.onLogout()}>
+                        <Link className="nav-link" to="/"><h5>Đăng xuất</h5></Link>
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>
+                        <Link className="nav-link" to="/user"><h5>Thông tin tài khoản</h5></Link>
+                    </DropdownItem>
+                </DropdownMenu>
+            </UncontrolledDropdown>
+        )
+    }
 
     render() {
         let temp = this.checkAuth();
@@ -69,7 +94,7 @@ class Header extends React.Component {
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar >
                                 <NavItem className="ml-3">
-                                    <Input icon='search' placeholder='Search...' />
+                                    <SearchBar2 history = {this.props.history}/>
                                 </NavItem>
                                 <NavItem className="ml-3"> 
                                     <Link to="/cart" className="nav-link">
@@ -81,15 +106,15 @@ class Header extends React.Component {
                                 <NavItem className="ml-3">
                                     {     
                                         user ?
-                                        <Link className="nav-link disabled"><h5><b>Welcom {user.name}</b></h5></Link> : <Link className="nav-link" to="/login"><h5>Đăng nhập</h5></Link>
+                                        <Link to="#" className="nav-link disabled"><h5><b>Welcom {user.name}</b></h5></Link> : <Link className="nav-link" to="/login"><h5>Đăng nhập</h5></Link>
                                     }
                                 </NavItem>
-                                <NavItem className="ml-3">
+                                <div className="ml-3 nav-item">
                                     {     
                                         user ?
-                                        <Link className="nav-link " onClick={() => this.props.onLogout()}><h5>Đăng xuất</h5></Link> : <Link className="nav-link" to="/register"><h5>Đăng kí</h5></Link>
+                                        <this.groupOption/> : <Link className="nav-link" to="/register"><h5>Đăng kí</h5></Link>
                                     }                                    
-                                </NavItem>
+                                </div>
                             </Nav>
                         </Collapse>
                     </Navbar>
@@ -115,4 +140,4 @@ const mapDispatchToProps = (dispatch, props) => {
   }
   
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

@@ -6,6 +6,8 @@ import ProductsCategory from '../components/ProductsCategory';
 import Cart from '../components/Cart';
 import Login from '../components/Login';
 import RegisterModal from '../components/Register';
+import UserDetail from  '../components/UserDetail';
+import Checkout from '../components/Checkout';
 
 const routes = [
     {
@@ -33,10 +35,10 @@ const routes = [
     {
         path: '/detail/:id',
         exact: true,
-        main: ({match}) => {
+        main: ({match,history}) => {
             return (
                 <div>
-                    <ProductDetail match={match}/>
+                    <ProductDetail match={match} history={history}/>
                 </div>
             )
         }
@@ -70,6 +72,28 @@ const routes = [
             return (
                 <div>
                     <RegisterModal match={match} history={history}/>
+                </div>
+            )
+        },
+    },
+    {
+        path: '/user',
+        exact: true,
+        main: ({history}) => {
+            return (
+                <div>
+                    <UserDetail history={history}/>
+                </div>
+            )
+        }
+    },
+        {
+        path: '/cart/checkout',
+        exact: true,
+        main: ({history}) => {
+            return (
+                <div>
+                    <Checkout history={history}/>
                 </div>
             )
         }

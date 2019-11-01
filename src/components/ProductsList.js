@@ -13,6 +13,17 @@ class ProductsList extends React.Component {
         this.props.onGetBooks();
     }
 
+    showItem(books,category){
+        let arr = [];
+        for( let i = 0; i < books.length; i++){
+            if(books[i].category === category)
+            {
+                arr.push(books[i]);
+            }
+        }
+        return arr;
+    }
+
     render(){
         const { books } = this.props.books;
         return(
@@ -23,13 +34,9 @@ class ProductsList extends React.Component {
                             <h4><u>Sách Kinh Tế</u></h4>
                         </Link>
                         <Row>
-                            {   
-                                books.map(book => {
-                                    if(book.category === "Sách Kinh Tế")
-                                    {
-                                        return <Item key={book._id} product={book} />
-                                    }
-                                    return false; ;
+                            {  
+                                this.showItem(books,"Sách Kinh Tế").map(book => {
+                                    return <Item key={book._id} product={book} />
                                 }
                                 )
                             }
@@ -39,12 +46,8 @@ class ProductsList extends React.Component {
                         </Link>
                         <Row>
                             {
-                                books.map(book => {
-                                    if(book.category === "Văn học Việt Nam")
-                                    {
-                                        return <Item key={book._id} product={book} />
-                                    }
-                                    return false;
+                                this.showItem(books,"Văn học Việt Nam").map(book => {
+                                    return <Item key={book._id} product={book} />
                                 }
                                 )
                             }
@@ -54,12 +57,8 @@ class ProductsList extends React.Component {
                         </Link>
                         <Row>
                             {
-                                books.map(book => {
-                                    if(book.category === "Văn học nước ngoài")
-                                    {
-                                        return <Item key={book._id} product={book} />
-                                    }
-                                    return false; ;
+                                this.showItem(books,"Văn học nước ngoài").map(book => {
+                                    return <Item key={book._id} product={book} />
                                 }
                                 )
                             }

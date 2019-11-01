@@ -9,6 +9,13 @@ import { Icon, List, Divider, Image, ListHeader, ListItem } from 'semantic-ui-re
 
 
 class ProductDetail extends React.Component {
+
+    componentWillReceiveProps(newProps){
+        if( newProps.match.params.id !== this.props.match.params.id ){
+            this.props.onGetBookDetail(newProps.match.params.id);
+        }
+    }
+    
     componentDidMount(){
         this.props.onGetBookDetail(this.props.match.params.id);
     }

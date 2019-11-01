@@ -30,13 +30,6 @@ class RegisterModal extends React.Component {
         this.setState({ msg: null })
       }
     }
-
-    //if authenticated close modal
-    // if(this.state.modal){
-    //   if(isAuthenticated) {
-    //     //this.toggle();
-    //   }
-    // }
     if(isAuthenticated){
       this.props.history.goBack();
     }
@@ -80,7 +73,7 @@ class RegisterModal extends React.Component {
           <Segment stacked>
             <Form.Input onClick={this.toggle}  onChange={this.onChange} name="name" fluid icon='user' iconPosition='left' placeholder='Username' />
             <Form.Input onClick={this.toggle}  onChange={this.onChange} name="email" fluid icon='mail' iconPosition='left' placeholder='E-mail address' />
-            <Form.Input onClick={this.toggle} o nChange={this.onChange} name="password" fluid icon='lock' iconPosition='left' placeholder='Password'  type='password'/>  
+            <Form.Input onClick={this.toggle}  onChange={this.onChange} name="password" fluid icon='lock' iconPosition='left' placeholder='Password'  type='password'/>  
             <Button color='teal' fluid size='large'>
               Register
             </Button>

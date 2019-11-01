@@ -3,6 +3,7 @@ import * as Types from '../actions/types';
 const initialState = {
     books: [],
     book:  {},
+    booksearch : [],
     loading: false
 };
 
@@ -36,6 +37,11 @@ const booksReducer = (state = initialState, action) => {
                 book:  {},
                 loading: false
             };
+        case Types.GET_BOOK_SEARCH:
+            return {
+                ...state,
+                booksearch: action.books
+            }
         default: return { ...state };
     }
 }

@@ -39,7 +39,7 @@ class LoginModal extends React.Component {
     //   }
     // }
     if(isAuthenticated){
-      this.props.history.goBack();
+      this.props.history.push('/');
     }
   }
 
@@ -66,7 +66,7 @@ class LoginModal extends React.Component {
           {this.state.msg ? (<Alert color='danger'>{this.state.msg}</Alert>) : null}
           <Form size='large' onSubmit={this.onSubmit}>
             <Segment stacked>
-              <Form.Input onClick={this.toggle}  fluid onChange={this.onChange} name="email" icon='email' iconPosition='left' placeholder='E-mail address' />
+              <Form.Input onClick={this.toggle}  fluid onChange={this.onChange} name="email" icon='mail' iconPosition='left' placeholder='E-mail address' />
               <Form.Input onClick={this.toggle}  fluid onChange={this.onChange} name="password" icon='lock' iconPosition='left' placeholder='Password' type='password' />
               <Button color='teal' fluid size='large'>Login</Button>
             </Segment>

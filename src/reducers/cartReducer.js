@@ -19,7 +19,6 @@ const cartReducer = (state = initialState, action) => {
                     quantity
                 });
             }
-            console.log(state);
             localStorage.setItem('CART', JSON.stringify(state));
             return [...state];
         case Types.DELETE_PRODUCT_IN_CART:
@@ -36,7 +35,12 @@ const cartReducer = (state = initialState, action) => {
             }
             localStorage.setItem('CART', JSON.stringify(state));
             return [...state];
-        default: return [ ...state ];
+        case Types.LOGOUT_SUCCESS:
+            state = [];
+            return [...state];
+        default:
+            localStorage.setItem('CART', JSON.stringify(state));
+            return [ ...state ];
     }
 }
 

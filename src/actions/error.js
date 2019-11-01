@@ -11,7 +11,6 @@ export const returnError = (msg, status, id = null) => {
 
 //Clear Error
 export const clearError = () => {
-    console.log('clear error');
     return {
         type: Types.CLEAR_ERROR
     }

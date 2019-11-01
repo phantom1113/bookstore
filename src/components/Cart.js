@@ -2,6 +2,7 @@ import React from 'react'
 import { Container,Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 import { Button, Image, List, Label, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { actRemoveProductInCart, actUpdateProductInCart } from '../actions/cart';
 import { updateCartAuth, actRemoveProductInCartAuth} from '../actions/cartAuth';
 
@@ -52,7 +53,6 @@ class Cart extends React.Component {
 
     render(){
         let temp = this.checkAuth();
-        console.log(temp);
         let result = this.calPrice(temp);
         return(
             <Container>
@@ -66,7 +66,7 @@ class Cart extends React.Component {
                                             <List.Content floated='right'>
                                                 <Button icon='close' onClick={() => this.DeleteProductInCart(product.item) }/>
                                             </List.Content>
-                                            <Image src={product.item.image} />
+                                            <Image src={product.item.image}  size='medium' />
                                             <List.Content>
                                                 <List relaxed>
                                                     <List.Item>{product.item.name}</List.Item>
@@ -103,7 +103,9 @@ class Cart extends React.Component {
                                 </div>
                             </ListGroupItem>
                         </ListGroup>
-                        <Button color='green' style={{width:"100%"} }>Tiến hành đặt hàng</Button>
+                        {this.props.auth.token==null ? <Link to='/login'><Button color='green' style={{width:"100%"} }>Tiến hành đặt hàng</Button></Link>:
+                                                       <Link to='/cart/checkout'><Button color='green' style={{width:"100%"} }>Tiến hành đặt hàng</Button></Link>
+                        }
                     </Col>
                 </Row>
             </Container>

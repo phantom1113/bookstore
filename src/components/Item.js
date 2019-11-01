@@ -26,7 +26,7 @@ export default class ItemProduct extends React.Component {
                             <CardTitle><h5>{this.props.product.name}</h5></CardTitle>
                             <CardSubtitle className="text-muted">{this.props.product.author}</CardSubtitle>
                             <CardText>{this.props.product.newprice}đ</CardText>
-                            <CardText><strike>{this.props.product.oldprice}đ</strike><Label color='red'>-20%</Label></CardText>
+                            <div className="card-text"><strike>{this.props.product.oldprice}đ</strike><Label color='red'>-20%</Label></div>
                         </CardBody>
                     </Card>
                 </Link>
