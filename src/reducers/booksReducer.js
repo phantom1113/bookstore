@@ -1,6 +1,7 @@
 import * as Types from '../actions/types';
 
 const initialState = {
+    bookPerPage: {},
     books: [],
     book:  {},
     booksearch : [],
@@ -17,6 +18,13 @@ const booksReducer = (state = initialState, action) => {
                 book:  {},
                 loading: false
             };
+        case Types.GET_BOOK_PER_PAGE:
+            return {
+                ...state,
+                bookPerPage: action.bookPerPage,
+                book: {},
+                loading: false
+            };
         case Types.GET_BOOK_DETAIL:
             return {
                 ...state,
@@ -26,14 +34,14 @@ const booksReducer = (state = initialState, action) => {
         case Types.DECREASE_BOOKS:
             return {
                 ...state,
-                books: action.books,
+                bookPerPage:{item: action.books},
                 book:  {},
                 loading: false
             };
         case Types.INCREASE_BOOKS:
             return {
                 ...state,
-                books: action.books,
+                bookPerPage: {item:action.books},
                 book:  {},
                 loading: false
             };

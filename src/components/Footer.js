@@ -6,7 +6,7 @@ import { List, Icon } from 'semantic-ui-react'
 export default class Header extends React.Component {
     render() {
         return (
-            <div style={{backgroundColor:"#79bf799e", color:"black",}}>
+            <div className='background-footer'>
                 <Container style={{paddingLeft:"1.5rem",marginTop:"2rem"}}>
                     <Row>
                         <Col xs="12" md="4" style={{marginTop:"1rem",textAlign:"center"}}>

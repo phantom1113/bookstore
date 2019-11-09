@@ -23,7 +23,7 @@ const routes = [
         }
     },
     {
-        path: '/category/:id',
+        path: '/category/:category',
         exact: true,
         main: ({match}) => {
             return (

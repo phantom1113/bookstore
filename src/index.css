@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+.background-footer {
+  background-color: #79bf799e;
+  color:black;
+}
+
 .cus-link:hover {
   color: #2e2d31;
   text-decoration:none;

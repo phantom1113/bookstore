@@ -1,12 +1,37 @@
 import React from 'react'
-import { Container,Row, Col, Button } from 'reactstrap';
+import { Container,Row, Col, Button, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import Item from './Item';
 import { connect } from 'react-redux';
-import { getBook, decreasePrice, increasePrice } from './../actions/index';
+import { getBook, decreasePrice, increasePrice, getItemPerPage } from './../actions/index';
 
 class ProductsCategory extends React.Component {
+
+    initialRenderItem(){
+        let a  = [];
+        if(this.props.books.bookPerPage.item && this.props.books.bookPerPage.item[0].category === this.props.match.params.category)
+            return this.props.books.bookPerPage.item;
+        else
+            return a;
+    }
+    pageNumber = (temp) => {
+        let a = [];
+        if (this.props.books.bookPerPage.item && this.props.books.bookPerPage.item[0].category === this.props.match.params.category)
+            {
+                for (let i = 1; i <= temp; i++) {
+                    a.push(i);
+                }
+            }
+        return a;   
+    }  
+
+    showPageNuber = (number,currentpage) =>{
+        if(number === currentpage || number === currentpage - 1 || number === currentpage + 1)
+            return '';
+        return 'none'
+    }
+
     componentDidMount(){
-        this.props.onGetBooks(this.props.match.params.id);
+        this.props.onGetItemPerPage(this.props.match.params.category,1)
     }
     onDecreasePrice(books){
         this.props.onDecreasePrice(books);
@@ -14,8 +39,9 @@ class ProductsCategory extends React.Component {
     onIncreasePrice(books){
         this.props.onIncreasePrice(books);
     }
+
     render(){
-        let books  = this.props.books.books.filter( book => book.category === this.props.match.params.id);
+        let books = this.initialRenderItem();
         return(
             <Container>
                 <Row className='mt-2'>
@@ -29,6 +55,50 @@ class ProductsCategory extends React.Component {
                                     return <Item key={product._id} product={product} />
                                 })
                             }
+                        </Row>
+                        <Row className="d-flex justify-content-center">
+                        <Pagination aria-label="Page navigation example">
+                                {
+                                    this.pageNumber(this.props.books.bookPerPage.total).map(number => {
+                                        let classes = this.props.books.bookPerPage.currentpage === number ? true : false;
+                                        if(number === 1){
+                                            return (
+                                                <React.Fragment key={number}>
+                                                    <PaginationItem key={number-1} disabled={classes} onClick={() => this.props.onGetItemPerPage(this.props.match.params.category, 1)}>
+                                                        <PaginationLink key={number-1} first />
+                                                    </PaginationItem>
+                                                    <PaginationItem style={{display:`${this.showPageNuber(number,this.props.books.bookPerPage.currentpage)}`}} key={number} active={classes} onClick={() => this.props.onGetItemPerPage(this.props.match.params.category, number)}>
+                                                        <PaginationLink key={number}>
+                                                            {number}
+                                                        </PaginationLink>
+                                                    </PaginationItem>
+                                                </React.Fragment>
+                                            );
+                                        }
+                                        if(number === this.props.books.bookPerPage.total){
+                                            return (
+                                                <React.Fragment key={number}>
+                                                    <PaginationItem style={{display:`${this.showPageNuber(number,this.props.books.bookPerPage.currentpage)}`}} key={number} active={classes} onClick={() => this.props.onGetItemPerPage(this.props.match.params.category, number)}>
+                                                        <PaginationLink key={number}>
+                                                            {number}
+                                                        </PaginationLink>
+                                                    </PaginationItem>
+                                                    <PaginationItem key={number + 1} disabled={classes} onClick={() => this.props.onGetItemPerPage(this.props.match.params.category, this.props.books.bookPerPage.total)}>
+                                                        <PaginationLink last key={number + 1}/>
+                                                    </PaginationItem>
+                                                </React.Fragment>
+                                            );
+                                        }
+                                        return (
+                                            <PaginationItem style={{display:`${this.showPageNuber(number,this.props.books.bookPerPage.currentpage)}`}} key={number} active={classes} onClick={()=>this.props.onGetItemPerPage(this.props.match.params.category,number)}>
+                                                <PaginationLink key={number}>
+                                                    {number}
+                                                </PaginationLink>
+                                            </PaginationItem>
+                                        );
+                                    })
+                                }
+                            </Pagination>
                         </Row>
                     </Col>
                 </Row>
@@ -53,6 +123,9 @@ const mapDispatchToProps = (dispatch, props) => {
         },
         onIncreasePrice: (books) => {
             dispatch(increasePrice(books));
+        },
+        onGetItemPerPage: (category,page) => {
+            dispatch(getItemPerPage(category,page));
         }
     }
 }

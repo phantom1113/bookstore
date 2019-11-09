@@ -27,7 +27,7 @@ export default class Header extends React.Component {
     }
     render() {
         return (
-            <div style={{ backgroundColor: "#79bf799e",padding: '0.25rem'}}>
+            <div className='background-footer' style={{padding: '0.25rem'}}>
                 <Container className="mt-2 mb-2">
                     <div>
                         <Row>

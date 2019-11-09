@@ -5,6 +5,7 @@ export const GET_BOOK_SEARCH = 'GET_BOOK_SEARCH';
 export const GET_BOOK_DETAIL = 'GET_BOOK_DETAIL';
 export const DECREASE_BOOKS = 'DECREASE_BOOKS';
 export const INCREASE_BOOKS = 'INCREASE_BOOKS';
+export const GET_BOOK_PER_PAGE = 'GET_BOOK_PER_PAGE';
 export const LOADING_BOOK = 'LOADING_BOOK';
 export const GET_CART = 'GET_CART';
 export const ADD_TO_CARD = 'ADD_TO_CARD';

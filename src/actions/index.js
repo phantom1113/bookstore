@@ -22,6 +22,21 @@ export const getBook = (category) => dispatch => {
         })
 };
 
+export const getItemPerPage = (category, page) => dispatch => {
+    dispatch(setBookLoading());
+    axios
+    .get(Constants.URL_BOOK +`/pagination?category=${category}&page=${page}`)
+    .then(res => {
+        dispatch({
+            type: Types.GET_BOOK_PER_PAGE,
+            bookPerPage: res.data
+        });
+    })
+    .catch(err => {
+        dispatch(returnError(err.response.data, err.response.status));
+    })
+}
+
 export const getBookDetail = (id) => dispatch => {
     dispatch(setBookLoading());
     axios

@@ -9,7 +9,7 @@ const store = createStore(
     rootReducer,
     compose(
         applyMiddleware(...middleware),
-        devTools
+        //devTools
     )
 );
 

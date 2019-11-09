@@ -8,12 +8,13 @@ export const loadUser = () => (dispatch, getState) => {
     // User loading
     dispatch({ type: Types.USER_LOADING });
 
-    axios.get(Constants.URL_USER, tokenConfig(getState))
+    axios.get(Constants.URL_AUTH + '/user', tokenConfig(getState))
         .then(res => dispatch({
             type: Types.USER_LOADED,
             payload: res.data
         }))
         .catch(err => {
+            console.log(err);
             dispatch(returnError(err.response.data, err.response.status));
             dispatch({
                 type: Types.AUTH_ERROR,
@@ -127,7 +128,6 @@ export const logout = () => {
 export const tokenConfig = getState => {
     //Get token from localStorage
     const token = getState().auth.token;
-
     //Header
     const config = {
         headers: {
